@@ -186,8 +186,10 @@ def on_draw():
     glPopMatrix()
 
 def make_colormap():
-""" Make a 1024x3 matrix corresponding to a full walk around the color wheel. This is used for visualizing the range data.
-"""
+    """
+    Make a 1024x3 matrix corresponding to a full walk around the color wheel.
+    This is used for visualizing the range data.
+    """
     global colormap
     defaultsize = (256,)
     
@@ -224,8 +226,9 @@ def make_colormap():
     colormap = np.vstack((red, green, blue)).astype(np.uint8).transpose()
 
 def depth_to_rgb(d):
-""" Take a MxNx1 depth matrix and convert it to a MxNx3 RGB color matrix.
-"""
+    """
+    Take a MxNx1 depth matrix and convert it to a MxNx3 RGB color matrix.
+    """
     # Represent 0 data and 2047 data as black and white respectively.
     zeros = d == 0
     maxs = d == 2047
@@ -254,10 +257,11 @@ def depth_to_rgb(d):
     return colors
     
 def sample_bgnd(n):
-""" Take frames from the kinect to use as the background. Argument n
-corresponds to number of frames to be averaged as background. Currently
-averaging hurts more than it helps.
-"""
+    """
+    Take frames from the kinect to use as the background. Argument n
+    corresponds to number of frames to be averaged as background. Currently
+    averaging hurts more than it helps.
+    """
     depth, _ = freenect.sync_get_depth()
     #bgnd = uniform_filter(depth, mode='constant')
     bgnd = depth
@@ -271,10 +275,11 @@ averaging hurts more than it helps.
     return bgnd
     
 def warmup(time):
-""" At startup, the kinect depth sensor needs to go through some range
-calibration and focusing. This function accepts number of seconds to wait
-and will take some frames to "warm up" the sensor.
-"""
+    """
+    At startup, the kinect depth sensor needs to go through some range
+    calibration and focusing. This function accepts number of seconds to wait
+    and will take some frames to "warm up" the sensor.
+    """
     dt = .05
     iterations = int(np.around(time / dt))
     for i in range(iterations):
@@ -284,8 +289,9 @@ and will take some frames to "warm up" the sensor.
         sleep(dt)
 
 def make_windows():
-""" Just makes openCV windows. Only useful while debugging.
-"""
+    """
+    Just makes openCV windows. Only useful while debugging.
+    """
     #cv.namedWindow('Background')
     #cv.namedWindow('Current')
     #cv.namedWindow('Diff')
